@@ -23,7 +23,7 @@ export function ProgressBar({
     <div className={`flex flex-col gap-1.5 ${className}`}>
       {showLabel && (
         <div className="flex justify-between text-xs font-medium text-[var(--text-muted)]">
-          <span>{label || `${current} / ${total}`}</span>
+          <span>{label !== undefined ? label : `${current} / ${total}`}</span>
           <span>{pct}%</span>
         </div>
       )}
