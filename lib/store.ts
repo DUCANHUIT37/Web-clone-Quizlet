@@ -2,7 +2,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { v4 as uuidv4 } from 'uuid';
-import type { AppState, Actions, Card, CardProgress, StudySession } from './types';
+import type { AppState, Actions, Deck, Card, CardProgress, StudySession } from './types';
 
 // CRITICAL: Wrap localStorage access để tránh SSR crash (Next.js)
 const safeStorage = {
