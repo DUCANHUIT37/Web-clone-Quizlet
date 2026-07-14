@@ -60,18 +60,21 @@ export function TypeAnswer({
     }
 
     setResult({ isCorrect, similarity, submitted: true });
-    const delay = isCorrect ? 1500 : 2500;
-    setTimeout(() => onAnswer(isCorrect), delay);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') handleSubmit();
+    if (e.key === 'Enter') {
+      if (submitted && !nearCorrectPending && result) {
+        onAnswer(result.isCorrect);
+      } else if (!submitted) {
+        handleSubmit();
+      }
+    }
   };
 
   const acceptNearCorrect = (accept: boolean) => {
     setNearCorrectPending(false);
-    const delay = accept ? 1000 : 2000;
-    setTimeout(() => onAnswer(accept), delay);
+    onAnswer(accept);
   };
 
   // Diff highlight: show which characters are wrong
@@ -176,28 +179,36 @@ export function TypeAnswer({
 
       {/* Result feedback */}
       {submitted && !nearCorrectPending && (
-        <div
-          className={`rounded-xl px-4 py-3 text-sm font-medium flex flex-col gap-1.5 animate-slide-up ${
-            result?.isCorrect
-              ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
-              : 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800'
-          }`}
-          aria-live="polite"
-        >
-          {result?.isCorrect ? (
-            <span className="flex items-center gap-2">
-              <Check size={16} /> Chính xác! 🎉
-            </span>
-          ) : (
-            <>
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center animate-slide-up mt-2">
+          <div
+            className={`flex-1 rounded-xl px-4 py-3 text-sm font-medium flex flex-col gap-1.5 ${
+              result?.isCorrect
+                ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
+                : 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800'
+            }`}
+            aria-live="polite"
+          >
+            {result?.isCorrect ? (
               <span className="flex items-center gap-2">
-                <X size={16} /> Chưa đúng. Đáp án là:
+                <Check size={16} /> Chính xác! 🎉
               </span>
-              <div className="font-mono text-base bg-white/60 dark:bg-black/20 rounded-lg px-3 py-2">
-                {renderDiff(input.trim().toLowerCase(), correctAnswer.toLowerCase())}
-              </div>
-            </>
-          )}
+            ) : (
+              <>
+                <span className="flex items-center gap-2">
+                  <X size={16} /> Chưa đúng. Đáp án là:
+                </span>
+                <div className="font-mono text-base bg-white/60 dark:bg-black/20 rounded-lg px-3 py-2">
+                  {renderDiff(input.trim().toLowerCase(), correctAnswer.toLowerCase())}
+                </div>
+              </>
+            )}
+          </div>
+          <button
+            onClick={() => result && onAnswer(result.isCorrect)}
+            className="px-6 py-4 sm:py-0 h-auto sm:h-full min-h-[3rem] rounded-xl font-bold text-white gradient-primary hover:opacity-90 active:scale-95 transition-all flex-shrink-0"
+          >
+            Tiếp tục (Enter)
+          </button>
         </div>
       )}
     </div>

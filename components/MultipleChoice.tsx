@@ -38,10 +38,15 @@ export function MultipleChoice({
     setAnswered(false);
   }, [card.id]);
 
-  // Keyboard shortcuts 1-4
+  // Keyboard shortcuts 1-4 and Enter
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (answered) return;
+      if (answered) {
+        if (e.key === 'Enter') {
+          onAnswer(selected === correctAnswer);
+        }
+        return;
+      }
       const idx = parseInt(e.key) - 1;
       if (idx >= 0 && idx < options.length) {
         handleSelect(options[idx]);
@@ -50,17 +55,12 @@ export function MultipleChoice({
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [answered, options]);
+  }, [answered, options, selected, correctAnswer]);
 
   const handleSelect = (option: string) => {
     if (answered) return;
     setSelected(option);
     setAnswered(true);
-    const isCorrect = option === correctAnswer;
-
-    // Auto-advance
-    const delay = isCorrect ? 1500 : 2500;
-    setTimeout(() => onAnswer(isCorrect), delay);
   };
 
   const getOptionStyle = (option: string) => {
@@ -121,25 +121,33 @@ export function MultipleChoice({
 
       {/* Feedback */}
       {answered && (
-        <div
-          className={`rounded-xl px-4 py-3 text-sm font-medium flex items-center gap-2 animate-slide-up ${
-            selected === correctAnswer
-              ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
-              : 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800'
-          }`}
-          aria-live="polite"
-        >
-          {selected === correctAnswer ? (
-            <>
-              <Check size={16} />
-              Chính xác! 🎉
-            </>
-          ) : (
-            <>
-              <X size={16} />
-              Chưa đúng. Đáp án là: <strong>{correctAnswer}</strong>
-            </>
-          )}
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center animate-slide-up">
+          <div
+            className={`flex-1 rounded-xl px-4 py-3 text-sm font-medium flex items-center gap-2 ${
+              selected === correctAnswer
+                ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
+                : 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800'
+            }`}
+            aria-live="polite"
+          >
+            {selected === correctAnswer ? (
+              <>
+                <Check size={16} />
+                Chính xác! 🎉
+              </>
+            ) : (
+              <>
+                <X size={16} />
+                Chưa đúng. Đáp án là: <strong>{correctAnswer}</strong>
+              </>
+            )}
+          </div>
+          <button
+            onClick={() => onAnswer(selected === correctAnswer)}
+            className="px-6 py-3 rounded-xl font-bold text-white gradient-primary hover:opacity-90 active:scale-95 transition-all flex-shrink-0"
+          >
+            Tiếp tục (Enter)
+          </button>
         </div>
       )}
     </div>
