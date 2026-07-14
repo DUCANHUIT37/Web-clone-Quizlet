@@ -147,14 +147,14 @@ export default function LearnPage() {
     return (
       <div className="min-h-screen">
         <header className="sticky top-0 z-30 bg-[var(--card)]/80 backdrop-blur-lg border-b border-[var(--border)]">
-          <div className="max-w-xl mx-auto px-4 h-16 flex items-center gap-3">
+          <div className="max-w-4xl mx-auto px-4 h-16 flex items-center gap-3">
             <Link href={`/study/${deckId}`} className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-[var(--bg)] text-[var(--text-muted)] transition-colors">
               <ArrowLeft size={20} />
             </Link>
             <span className="font-bold text-[var(--text)]">{deck.name} — Learn</span>
           </div>
         </header>
-        <div className="max-w-xl mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto px-4 py-8">
           <ResultScreen
             totalCards={totalAnswered}
             correctCount={correctCount}
@@ -170,7 +170,7 @@ export default function LearnPage() {
     <div className="min-h-dvh flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-30 bg-[var(--card)]/80 backdrop-blur-lg border-b border-[var(--border)]">
-        <div className="max-w-xl mx-auto px-4 h-16 flex items-center gap-3">
+        <div className="max-w-4xl mx-auto px-4 h-16 flex items-center gap-3">
           <Link
             href={`/study/${deckId}`}
             className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-[var(--bg)] text-[var(--text-muted)] transition-colors"
@@ -186,7 +186,7 @@ export default function LearnPage() {
         </div>
       </header>
 
-      <main className="flex-1 max-w-xl mx-auto w-full px-4 py-6 flex flex-col gap-6">
+      <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8 flex flex-col gap-8">
         {/* Progress */}
         <ProgressBar
           current={masteredCount}

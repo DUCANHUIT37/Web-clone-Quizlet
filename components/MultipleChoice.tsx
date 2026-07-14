@@ -79,15 +79,15 @@ export function MultipleChoice({
   return (
     <div className="flex flex-col gap-4 animate-fade-in">
       {/* Question */}
-      <div className="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 text-center card-shadow">
-        <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-3">
+      <div className="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-8 sm:p-10 text-center card-shadow">
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-4">
           {questionField === 'term' ? 'Từ' : 'Nghĩa'} — Chọn đáp án đúng
         </p>
         <p
           className="font-bold text-[var(--text)] leading-relaxed"
           dir="auto"
           style={{
-            fontSize: card[questionField].length > 60 ? '1.1rem' : '1.5rem',
+            fontSize: card[questionField].length > 60 ? '1.5rem' : '2.25rem',
           }}
         >
           {card[questionField]}
@@ -101,12 +101,12 @@ export function MultipleChoice({
             key={option + i}
             onClick={() => handleSelect(option)}
             disabled={answered}
-            className={`relative flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all duration-200 ${getOptionStyle(option)}`}
+            className={`relative flex items-center gap-4 p-5 sm:p-6 rounded-2xl border-2 text-left transition-all duration-200 ${getOptionStyle(option)}`}
           >
-            <span className="w-7 h-7 flex-shrink-0 rounded-lg bg-[var(--bg)] flex items-center justify-center text-xs font-bold text-[var(--text-muted)]">
+            <span className="w-8 h-8 flex-shrink-0 rounded-lg bg-[var(--bg)] flex items-center justify-center text-sm font-bold text-[var(--text-muted)]">
               {i + 1}
             </span>
-            <span className="text-sm font-medium leading-snug" dir="auto">
+            <span className="text-base sm:text-lg font-medium leading-snug" dir="auto">
               {option}
             </span>
             {answered && option === correctAnswer && (

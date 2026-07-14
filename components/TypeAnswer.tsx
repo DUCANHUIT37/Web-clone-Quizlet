@@ -103,14 +103,14 @@ export function TypeAnswer({
   return (
     <div className="flex flex-col gap-4 animate-fade-in">
       {/* Question */}
-      <div className="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 text-center card-shadow">
-        <p className="text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-3">
+      <div className="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-8 sm:p-10 text-center card-shadow">
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-4">
           {questionField === 'term' ? 'Từ' : 'Nghĩa'} — Gõ đáp án
         </p>
         <p
           className="font-bold text-[var(--text)] leading-relaxed"
           dir="auto"
-          style={{ fontSize: card[questionField].length > 60 ? '1.1rem' : '1.5rem' }}
+          style={{ fontSize: card[questionField].length > 60 ? '1.5rem' : '2.25rem' }}
         >
           {card[questionField]}
         </p>
@@ -128,7 +128,7 @@ export function TypeAnswer({
             disabled={submitted}
             placeholder="Gõ đáp án vào đây..."
             aria-label="Nhập đáp án"
-            className={`w-full px-4 py-3.5 rounded-xl border-2 text-base font-medium bg-[var(--card)] text-[var(--text)] placeholder:text-[var(--text-muted)] outline-none transition-all duration-200 ${
+            className={`w-full px-6 py-5 rounded-2xl border-2 text-xl font-medium bg-[var(--card)] text-[var(--text)] placeholder:text-[var(--text-muted)] outline-none transition-all duration-200 ${
               !submitted
                 ? 'border-[var(--border)] focus:border-[var(--primary)]'
                 : result?.isCorrect
@@ -141,7 +141,7 @@ export function TypeAnswer({
         {!submitted && (
           <button
             onClick={handleSubmit}
-            className="gradient-primary text-white font-semibold py-3 rounded-xl hover:opacity-90 active:scale-95 transition-all"
+            className="gradient-primary text-white text-lg font-semibold py-4 rounded-xl hover:opacity-90 active:scale-95 transition-all"
           >
             Kiểm tra — Enter ↵
           </button>
