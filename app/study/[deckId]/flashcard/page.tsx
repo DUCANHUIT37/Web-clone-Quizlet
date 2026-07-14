@@ -101,7 +101,11 @@ export default function FlashcardPage() {
         correctAnswers: (progress[currentCard.id]?.correctAnswers ?? 0) + 1,
       });
     } else {
-      setIncorrectIds((s) => new Set([...s, currentCard.id]));
+      setIncorrectIds((s) => {
+        const next = new Set(s);
+        next.add(currentCard.id);
+        return next;
+      });
       updateProgress(currentCard.id, {
         totalAnswers: (progress[currentCard.id]?.totalAnswers ?? 0) + 1,
       });
