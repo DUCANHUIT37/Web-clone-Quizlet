@@ -53,6 +53,7 @@ export interface AppState {
   progress: Record<string, CardProgress>; // cardId -> progress
   sessions: StudySession[];
   settings: {
+    userName?: string; // Cá nhân hoá tên người dùng
     answerLanguage: 'definition' | 'term'; // Hỏi term → đánh definition, hay ngược lại
     shuffleCards: boolean;
     showTimer: boolean;

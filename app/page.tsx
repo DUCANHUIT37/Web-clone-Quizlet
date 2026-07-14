@@ -48,9 +48,16 @@ export default function HomePage() {
             <div className="w-9 h-9 gradient-primary rounded-xl flex items-center justify-center text-white">
               <Brain size={20} />
             </div>
-            <span className="font-bold text-xl text-gradient hidden sm:block">
-              Vocab Master
-            </span>
+            <div className="hidden sm:flex flex-col">
+              <span className="font-bold text-xl text-gradient leading-tight">
+                Vocab Master
+              </span>
+              {mounted && settings.userName && (
+                <span className="text-xs text-[var(--text-muted)] font-medium">
+                  Chào, {settings.userName} 👋
+                </span>
+              )}
+            </div>
           </Link>
 
           {/* Stats */}
@@ -97,6 +104,19 @@ export default function HomePage() {
           <div className="fixed right-4 top-20 z-50 w-72 bg-[var(--card)] border border-[var(--border)] rounded-2xl shadow-2xl p-5 animate-scale-in">
             <h3 className="font-bold text-[var(--text)] mb-4">Cài đặt</h3>
             <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <label htmlFor="userName" className="text-sm font-medium text-[var(--text)]">Tên của bạn</label>
+                <input
+                  id="userName"
+                  type="text"
+                  value={settings.userName || ''}
+                  onChange={(e) => updateSettings({ userName: e.target.value })}
+                  placeholder="Nhập tên..."
+                  maxLength={30}
+                  className="px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--bg)] text-[var(--text)] text-sm focus:border-[var(--primary)] outline-none transition-colors"
+                />
+              </div>
+              <hr className="border-[var(--border)]" />
               <label className="flex items-center justify-between gap-3 cursor-pointer">
                 <span className="text-sm text-[var(--text)]">Xáo trộn thẻ</span>
                 <button
