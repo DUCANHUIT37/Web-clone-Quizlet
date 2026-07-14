@@ -246,16 +246,16 @@ export default function LearnPage() {
               key={currentCard.id + "-" + state.phase + "-" + state.retryCount}
               card={currentCard}
               allCards={state.deckCards}
-              questionField={settings.answerLanguage === 'definition' ? 'term' : 'definition'}
-              answerField={settings.answerLanguage}
+              questionField="definition"
+              answerField="term"
               onAnswer={(isCorrect) => handleAnswer(isCorrect, currentCard)}
             />
           ) : (
             <TypeAnswer
               key={currentCard.id + "-" + state.phase + "-" + state.retryCount}
               card={currentCard}
-              questionField={settings.answerLanguage === 'definition' ? 'term' : 'definition'}
-              answerField={settings.answerLanguage}
+              questionField="definition"
+              answerField="term"
               onAnswer={(isCorrect) => handleAnswer(isCorrect, currentCard)}
             />
           )
