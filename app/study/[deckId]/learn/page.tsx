@@ -138,10 +138,20 @@ export default function LearnPage() {
     setQueueIdx(0);
   };
 
-  const allCardCount = cardsByDeck[deckId]?.length ?? 0;
-  const masteredCount = Object.values(localProgress.current).filter(
-    (p) => p.learnStage === 'mastered'
+  const ids = cardsByDeck[deckId] ?? [];
+  const deckCards = ids.map((id) => cards[id]).filter((c): c is NonNullable<typeof c> => !!c);
+
+  const allCardCount = ids.length;
+  const masteredCount = deckCards.filter(
+    (c) => localProgress.current[c.id]?.learnStage === 'mastered'
   ).length;
+
+  const stagePoints: Record<string, number> = { unseen: 0, mcq1: 1, type1: 2, mcq2: 3, type2: 4, mastered: 5 };
+  const currentPoints = deckCards.reduce((sum, c) => {
+    const stage = localProgress.current[c.id]?.learnStage || 'unseen';
+    return sum + (stagePoints[stage] || 0);
+  }, 0);
+  const totalPoints = allCardCount * 5;
 
   if (showResult) {
     return (
@@ -189,9 +199,10 @@ export default function LearnPage() {
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8 flex flex-col gap-8">
         {/* Progress */}
         <ProgressBar
-          current={masteredCount}
-          total={allCardCount}
+          current={currentPoints}
+          total={totalPoints}
           color="var(--primary)"
+          label={<span><strong>{masteredCount} / {allCardCount}</strong> thuộc</span>}
         />
 
         {/* Mode badge */}

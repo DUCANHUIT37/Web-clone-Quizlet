@@ -6,6 +6,7 @@ interface ProgressBarProps {
   color?: string;
   showLabel?: boolean;
   className?: string;
+  label?: React.ReactNode;
 }
 
 export function ProgressBar({
@@ -14,6 +15,7 @@ export function ProgressBar({
   color = 'var(--primary)',
   showLabel = true,
   className = '',
+  label,
 }: ProgressBarProps) {
   const pct = total > 0 ? Math.round((current / total) * 100) : 0;
 
@@ -21,7 +23,7 @@ export function ProgressBar({
     <div className={`flex flex-col gap-1.5 ${className}`}>
       {showLabel && (
         <div className="flex justify-between text-xs font-medium text-[var(--text-muted)]">
-          <span>{current} / {total}</span>
+          <span>{label || `${current} / ${total}`}</span>
           <span>{pct}%</span>
         </div>
       )}
