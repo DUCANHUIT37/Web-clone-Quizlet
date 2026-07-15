@@ -57,6 +57,15 @@ export default function StudyHubPage() {
       disabled: false,
     },
     {
+      id: 'quick-review',
+      icon: '⚡',
+      title: 'Ôn tập nhanh',
+      description: 'Trắc nghiệm & Nối từ ngẫu nhiên',
+      href: `/study/${deckId}/quick-review`,
+      gradient: 'from-amber-400 to-orange-500',
+      disabled: false,
+    },
+    {
       id: 'match',
       icon: '🎮',
       title: 'Match',
